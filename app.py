@@ -4,10 +4,10 @@ from flask import Flask, request
 import requests, uuid, json
 app = Flask(__name__)
 
-ACCESS_TOKEN='EABEV2bSVgN8BADQjZBuMxEeesOFQHGhBFCSBydPM9ZBKCn5ZB8CMrsNaAzWPMtrZBleH7UHsWLn8rZAQWDwZBzAC7Qt3JJO1SUcdpZBS1UaTh09btwL1e4ZBCKUvNOSyVXbI6fuWOC6vysvg8bwnjuJ9UZBfNRDmOIDZA3367ZBiZAAIXNNO7LYgNeVv'
-VERIFY_TOKEN= 'verify_token'
+ACCESS_TOKEN='###'
+VERIFY_TOKEN= '###'
 
-subscription_key = "6aba030ec0cc4248b856e8c0e5c303dd"
+subscription_key = "###"
 endpoint = "https://api.cognitive.microsofttranslator.com"
 
 location = "eastus"
