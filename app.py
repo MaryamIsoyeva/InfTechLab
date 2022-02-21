@@ -41,7 +41,7 @@ def translate_func(msg):
 
     request = requests.post(constructed_url, params=params, headers=headers, json=body)
     response = request.json()
-    print(response[0]["translations"][0]["text"])
+    return response[0]["translations"][0]["text"]
 
 @app.route('/')
 def hello_world():
