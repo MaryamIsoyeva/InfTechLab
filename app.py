@@ -1,20 +1,15 @@
-# import credentials
 import requests
 import flask
 from flask import Flask, request
+import requests, uuid, json
 app = Flask(__name__)
 
 ACCESS_TOKEN='EABEV2bSVgN8BADQjZBuMxEeesOFQHGhBFCSBydPM9ZBKCn5ZB8CMrsNaAzWPMtrZBleH7UHsWLn8rZAQWDwZBzAC7Qt3JJO1SUcdpZBS1UaTh09btwL1e4ZBCKUvNOSyVXbI6fuWOC6vysvg8bwnjuJ9UZBfNRDmOIDZA3367ZBiZAAIXNNO7LYgNeVv'
 VERIFY_TOKEN= 'verify_token'
 
-import requests, uuid, json
-
-# Add your subscription key and endpoint
 subscription_key = "6aba030ec0cc4248b856e8c0e5c303dd"
 endpoint = "https://api.cognitive.microsofttranslator.com"
 
-# Add your location, also known as region. The default is global.
-# This is required if using a Cognitive Services resource.
 location = "eastus"
 path = '/translate'
 constructed_url = endpoint + path
@@ -34,7 +29,6 @@ def translate_func(msg):
         'X-ClientTraceId': str(uuid.uuid4())
     }
 
-    # You can pass more than one object in body.
     body = [{
         'text': msg
     }]
@@ -58,16 +52,12 @@ def hello_world():
     return 'Messenger bot app'
 
 
-
-# Adds support for GET requests to our webhook
 @app.route('/webhook',methods=['GET'])
 def webhook_authorization():
     verify_token = request.args.get("hub.verify_token")
-    # Check if sent token is correct
     if verify_token == VERIFY_TOKEN:
-        # Responds with the challenge token from the request
         return request.args.get("hub.challenge")
-    return 'Unable to authorize.'
+    return 'Not authorized'
 
 
 @app.route("/webhook", methods=['POST'])
@@ -98,7 +88,4 @@ def webhook_handle():
     return 'ok'
 
 if __name__ == "__main__":
-    # translate_func("Good afternoon!")
     app.run(threaded=True, port=5000)
-    # print("define word"[7:])
-    # get_definition("word")
