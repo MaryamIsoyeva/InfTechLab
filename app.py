@@ -43,9 +43,19 @@ def translate_func(msg):
     response = request.json()
     return response[0]["translations"][0]["text"]
 
+def get_definition(word):
+    dictionary_path = "https://api.dictionaryapi.dev/api/v2/entries/en/"
+    definitions = requests.get(dictionary_path+word).json()[0]['meanings'][0]['definitions']
+    meanings=""
+    for definition in definitions:
+        meanings+=(str((u'B\u2060)').encode('utf-8'))+definition['definition'])
+        print(meanings)
+    return meanings
+
+
 @app.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return 'Messenger bot app'
 
 
 
@@ -66,12 +76,22 @@ def webhook_handle():
     message = data['entry'][0]['messaging'][0]['message']
     sender_id = data['entry'][0]['messaging'][0]['sender']['id']
     if message['text']:
-        translated_text = translate_func(message['text'])
-        request_body = {
+        request_body={}
+
+        if message['text'][:6]=="define":
+            request_body = {
                 'recipient': {
                     'id': sender_id
                 },
-                'message': {"text":translated_text}
+                'message': {"text": get_definition(message['text'][7:])}
+            }
+        else:
+            translated_text = translate_func(message['text'])
+            request_body = {
+                'recipient': {
+                    'id': sender_id
+                },
+                'message': {"text": translated_text}
             }
         response = requests.post('https://graph.facebook.com/v5.0/me/messages?access_token='+ACCESS_TOKEN, json=request_body).json()
         return response
@@ -80,3 +100,5 @@ def webhook_handle():
 if __name__ == "__main__":
     # translate_func("Good afternoon!")
     app.run(threaded=True, port=5000)
+    # print("define word"[7:])
+    # get_definition("word")
