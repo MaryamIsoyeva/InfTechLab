@@ -48,7 +48,7 @@ def get_definition(word):
     definitions = requests.get(dictionary_path+word).json()[0]['meanings'][0]['definitions']
     meanings=""
     for definition in definitions:
-        meanings+=(str((u'B\u2060)').encode('utf-8'))+definition['definition'])
+        meanings+=("~"+definition['definition']+"\n")
         print(meanings)
     return meanings
 
