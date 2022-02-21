@@ -1,9 +1,9 @@
-#Messenger bot
+# Messenger bot
 
 Бот для перекладу тексту українською та отримання визначень слів
 Використано мову Python, Microsoft Azure Text Translation Service, відкрите API словника англійської мови, сервіси Meta for developers
 
-###Кроки
+### Кроки
 
 1) Створено тестову сторінку на Facebook, налаштовано доступ додатку, згенеровано ключі, налаштовано відповідний webhook
 ![img.png](img.png)
